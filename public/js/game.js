@@ -21,3 +21,14 @@ function joinGame() {
 
   socket.emit('player joined', player);
 }
+
+socket.on('gameBroadcast', function(msg){
+
+  for(var i = 0; i<msg.length; i++) {
+    ctx.beginPath();
+    ctx.arc(msg[i].x, msg[i].y, 50, 0, Math.PI * 2, true);
+    ctx.stroke();
+  }
+
+
+});

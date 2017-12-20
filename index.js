@@ -21,8 +21,8 @@ io.on('connection', function(socket){
   console.log(players[0].id)
   socket.emit('new player', players);
 
-  socket.on('player joined', function(msg){
-    console.log(msg);
+  socket.on('player joined', function(p){
+    updatePlayer(socket, p);
   });
 
 
@@ -31,7 +31,7 @@ io.on('connection', function(socket){
 function updatePlayer(socket, playerInfo) {
 
   for(var i = 0; i < players.length; i++) {
-    if(player.id === socket.id) {
+    if(players[i].id === socket.id) {
       players[i].x = playerInfo.x;
       players[i].y = playerInfo.y;
     }
@@ -39,9 +39,14 @@ function updatePlayer(socket, playerInfo) {
 
 }
 
+setInterval(GameBroadcast, 1000/30);
+
+function GameBroadcast() {
+  io.emit('gameBroadcast', players);
+}
 
 http.listen(3000, function(){
-  console.log('listening on *:3000');
+  console.log('listening on *:3000 yo');
 });
 
 
