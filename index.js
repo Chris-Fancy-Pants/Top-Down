@@ -20,9 +20,30 @@ io.on('connection', function(socket){
   players.push(new_player);
   console.log(players[0].id)
   socket.emit('new player', players);
+
+  socket.on('player joined', function(msg){
+    console.log(msg);
+  });
+
+
 });
+
+function updatePlayer(socket, playerInfo) {
+
+  for(var i = 0; i < players.length; i++) {
+    if(player.id === socket.id) {
+      players[i].x = playerInfo.x;
+      players[i].y = playerInfo.y;
+    }
+  }
+
+}
+
 
 http.listen(3000, function(){
   console.log('listening on *:3000');
 });
+
+
+
 
